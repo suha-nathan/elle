@@ -4,6 +4,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Dashboard from './components/Dashboard';
 import Layout from './components/Layout'
+import Login from './components/Login';
+import Signup from './components/Signup'
+
 
 function App() {
   return (
@@ -11,16 +14,16 @@ function App() {
       <Router>
         <Switch> 
           <Route path="/login" >
-
+            <Login/>
           </Route>
 
           <Route path="/signup" >
-            
+            <Signup/>
           </Route>
 
           <Route path="/dashboard" >
             <Layout> 
-            <h3>Dashboard</h3>
+            <h3 className="header-text" >Dashboard</h3>
       
               <Dashboard/>
 
@@ -29,8 +32,8 @@ function App() {
 
           <Route path="/my-courses" >
           <Layout> 
-            <h3>My courses</h3>
-  
+            <h3 className="header-text" >My courses</h3>
+              
             </Layout>
           </Route>
 
@@ -45,7 +48,6 @@ function App() {
             <Layout> 
               <h3>Games</h3>
             </Layout>
-
           </Route>
 
           <Route path="/my-profile" >

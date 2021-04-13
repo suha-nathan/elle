@@ -11,11 +11,10 @@ export default function SideNavbar() {
     const [sidebar, setSideBar] = React.useState(true)
 
     return (
-        <nav className ="nav flex-column vh-100 " style={{backgroundColor:'#99BFD3'}} >
+        <nav className ="nav sticky-top flex-column vh-100 " style={{backgroundColor:'#99BFD3'}} >
             <div className="mx-auto p-2 m-2">
-                <h3><Elephant/> Elle </h3>
-            </div>
-            
+                <h3 ><Elephant/> Elle </h3>
+            </div>     
             <Link className="nav-link" to="/dashboard"> <AiOutlineHome/> Dashboard</Link>
             <Link class="nav-link" to="/my-courses"> <BsLayers/> My Courses</Link>
             <Link class="nav-link" to="/chat"> <BsChatDots/> Messages/Chat </Link>
