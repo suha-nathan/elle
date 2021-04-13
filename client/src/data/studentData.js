@@ -1,13 +1,15 @@
-studentData = {
+const studentData = {
     firstname:"Suhasini",
     lastname:"Padmanathan",
     email:"suha@hotmail.com",
     password:"some-hash",
     avatar: "https://via.placeholder.com/80",
     courseInformation:[
-        {
+        {   
+            id:1,
             courseTitle: "Math 101",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. Proin pulvinar elementum orci, ut sollicitudin sem molestie ut. Vestibulum in laoreet neque, non rutrum urna. Nunc nec ornare lacus. Vivamus eu diam tincidunt velit porttitor pharetra. Nam ultricies nibh vel consectetur ullamcorper. Proin sed massa sit amet orci placerat tristique a non neque.          Proin tempor nulla neque, sit amet aliquam libero euismod in. Aliquam consequat feugiat odio id dignissim. Donec gravida lectus ac mi molestie, vel efficitur est cursus. Donec sed vehicula elit. Mauris malesuada dignissim est vitae laoreet. Nullam faucibus varius lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+            coursePicture: "https://i.imgur.com/Kmu8EjM.png",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. ",
             trailerEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
             lessons:[
                 {
@@ -53,26 +55,34 @@ studentData = {
             ]
         },
         {
+            id:2,
             courseTitle: "History 101",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. Proin pulvinar elementum orci, ut sollicitudin sem molestie ut. Vestibulum in laoreet neque, non rutrum urna. Nunc nec ornare lacus. Vivamus eu diam tincidunt velit porttitor pharetra. Nam ultricies nibh vel consectetur ullamcorper. Proin sed massa sit amet orci placerat tristique a non neque.          Proin tempor nulla neque, sit amet aliquam libero euismod in. Aliquam consequat feugiat odio id dignissim. Donec gravida lectus ac mi molestie, vel efficitur est cursus. Donec sed vehicula elit. Mauris malesuada dignissim est vitae laoreet. Nullam faucibus varius lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+            coursePicture:"https://i.pinimg.com/564x/c7/1c/52/c71c526827c99dad75aaa4ae05c9085c.jpg",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. ",
             trailerEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
             lessons:[]
         },
         {
+            id:3,
             courseTitle: "Geography 101",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. Proin pulvinar elementum orci, ut sollicitudin sem molestie ut. Vestibulum in laoreet neque, non rutrum urna. Nunc nec ornare lacus. Vivamus eu diam tincidunt velit porttitor pharetra. Nam ultricies nibh vel consectetur ullamcorper. Proin sed massa sit amet orci placerat tristique a non neque.          Proin tempor nulla neque, sit amet aliquam libero euismod in. Aliquam consequat feugiat odio id dignissim. Donec gravida lectus ac mi molestie, vel efficitur est cursus. Donec sed vehicula elit. Mauris malesuada dignissim est vitae laoreet. Nullam faucibus varius lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+            coursePicture: "https://i.pinimg.com/564x/76/9a/6f/769a6f4b75da0c531d1314406a36d817.jpg",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. ",
             trailerEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
             lessons:[]
         },
         {
+            id:4,
             courseTitle: "Physics 101",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. Proin pulvinar elementum orci, ut sollicitudin sem molestie ut. Vestibulum in laoreet neque, non rutrum urna. Nunc nec ornare lacus. Vivamus eu diam tincidunt velit porttitor pharetra. Nam ultricies nibh vel consectetur ullamcorper. Proin sed massa sit amet orci placerat tristique a non neque.          Proin tempor nulla neque, sit amet aliquam libero euismod in. Aliquam consequat feugiat odio id dignissim. Donec gravida lectus ac mi molestie, vel efficitur est cursus. Donec sed vehicula elit. Mauris malesuada dignissim est vitae laoreet. Nullam faucibus varius lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+            coursePicture: "https://i.pinimg.com/originals/43/aa/4c/43aa4ca78f038ed75d9db7dc8b3e0545.jpg",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. ",
             trailerEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
             lessons:[]
         },
         {
+            id:5,
             courseTitle: "Biology 101",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. Proin pulvinar elementum orci, ut sollicitudin sem molestie ut. Vestibulum in laoreet neque, non rutrum urna. Nunc nec ornare lacus. Vivamus eu diam tincidunt velit porttitor pharetra. Nam ultricies nibh vel consectetur ullamcorper. Proin sed massa sit amet orci placerat tristique a non neque.          Proin tempor nulla neque, sit amet aliquam libero euismod in. Aliquam consequat feugiat odio id dignissim. Donec gravida lectus ac mi molestie, vel efficitur est cursus. Donec sed vehicula elit. Mauris malesuada dignissim est vitae laoreet. Nullam faucibus varius lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+            coursePicture: "https://i.pinimg.com/564x/4e/62/21/4e6221871c61e1e27cb04a214f4c1a89.jpg",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. ",
             trailerEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
             lessons:[]
         }

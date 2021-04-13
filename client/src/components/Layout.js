@@ -11,7 +11,7 @@ export default function Layout({ children }) {
                     <SideNavbar/>
                 </Col>
 
-                <Col>
+                <Col md={10} >
                 <Navbar>
                     {/* <Navbar.Brand >Hello Mark</Navbar.Brand> */}
                     <Navbar.Toggle />
