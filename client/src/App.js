@@ -7,6 +7,7 @@ import Layout from './components/Layout'
 import Login from './components/Login';
 import Signup from './components/Signup'
 
+
 function App() {
   return (
     <div>
@@ -32,7 +33,7 @@ function App() {
           <Route path="/my-courses" >
           <Layout> 
             <h3 className="header-text" >My courses</h3>
-  
+              
             </Layout>
           </Route>
 

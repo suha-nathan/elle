@@ -23,7 +23,7 @@ function Dashboard() {
                 </Col>
 
                 <Col className="p-4" >
-                    <PieChart width={250} height={250}>
+                    <PieChart className="chart-div" width={250} height={250}>
                         <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#5787AB" label />
                         <Legend/>
                     </PieChart>               
@@ -34,6 +34,8 @@ function Dashboard() {
                 </Col>
 
                 <Col >
+                {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/SGNwG_MjslI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
+
                 </Col>
 
                 

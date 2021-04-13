@@ -7,7 +7,7 @@ import eventData from '../data/eventData'
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
 const MyCalendar = props => (
-    <Calendar
+    <Calendar className="chart-div"
       localizer={localizer}
       events={eventData}
       startAccessor="start"
