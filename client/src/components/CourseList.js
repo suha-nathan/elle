@@ -17,7 +17,7 @@ function CourseList() {
                   <Card.Text>
                     {el.description}
                   </Card.Text>
-                  <Link to={`/my-courses/${el.id}`}>Start Course</Link>
+                  <Link to={`/my-courses/${el.id}`}>View Course</Link>
                 </Card.Body>
                 </Card>             
             </Col>

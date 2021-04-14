@@ -7,6 +7,7 @@ import Layout from './components/Layout'
 import Login from './components/Login';
 import Signup from './components/Signup'
 import CourseList from './components/CourseList'
+import CourseHome from './components/CourseHome'
 import ChatPage from './components/ChatPage'
 
 
@@ -39,9 +40,14 @@ function App() {
           </Layout>
           </Route>
 
-          <Route path="/my-courses/:id" >
+          <Route exact path="/my-courses/:id" >
             <Layout> 
-              <h3>test</h3>
+              <CourseHome/>
+            </Layout>
+          </Route>
+          <Route exact path="/my-courses/:id/:title" >
+            <Layout> 
+              <p>Course Content</p>
             </Layout>
           </Route>
 

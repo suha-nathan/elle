@@ -10,12 +10,12 @@ const studentData = {
             courseTitle: "Math 101",
             coursePicture: "https://i.imgur.com/Kmu8EjM.png",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. ",
-            trailerEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
+            trailerEmbedVideo: "https://www.youtube.com/embed/0JUN9aDxVmI",
             lessons:[
                 {
-                    seriesNumber: 1,
+                    seriesNumber: 1.01,
                     lessonTitle: "Addition",
-                    mainEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
+                    mainEmbedVideo: "https://www.youtube.com/embed/AuX7nPBqDts",
                     lessonDescription: "this is the lesson description ffff",
                     quizList: [
                         {
@@ -33,7 +33,7 @@ const studentData = {
                     ]
                 },
                 {
-                    seriesNumber: 2,
+                    seriesNumber: 1.02,
                     lessonTitle: "Subtraction",
                     mainEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
                     lessonDescription: "this is another lesson description ffff",
