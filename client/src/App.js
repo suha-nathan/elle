@@ -6,6 +6,9 @@ import Dashboard from './components/Dashboard';
 import Layout from './components/Layout'
 import Login from './components/Login';
 import Signup from './components/Signup'
+import CourseList from './components/CourseList'
+import CourseHome from './components/CourseHome'
+import ChatPage from './components/ChatPage'
 
 
 function App() {
@@ -13,15 +16,15 @@ function App() {
     <div>
       <Router>
         <Switch> 
-          <Route path="/login" >
+          <Route exact path="/login" >
             <Login/>
           </Route>
 
-          <Route path="/signup" >
+          <Route exact path="/signup" >
             <Signup/>
           </Route>
 
-          <Route path="/dashboard" >
+          <Route exact path="/dashboard" >
             <Layout> 
             <h3 className="header-text" >Dashboard</h3>
       
@@ -30,16 +33,28 @@ function App() {
             </Layout>
           </Route>
 
-          <Route path="/my-courses" >
+          <Route exact path="/my-courses" >
           <Layout> 
-            <h3 className="header-text" >My courses</h3>
-              
+            <h3 className="header-text" >My Courses</h3>
+              <CourseList/>
+          </Layout>
+          </Route>
+
+          <Route exact path="/my-courses/:id" >
+            <Layout> 
+              <CourseHome/>
+            </Layout>
+          </Route>
+          <Route exact path="/my-courses/:id/:title" >
+            <Layout> 
+              <p>Course Content</p>
             </Layout>
           </Route>
 
           <Route path="/chat" >
           <Layout> 
             <h3>Chat</h3>
+            <ChatPage/>
           </Layout>
 
           </Route>
@@ -65,7 +80,7 @@ function App() {
 
           <Route>
             <Layout>
-              
+              smth wrong
             </Layout>
           </Route>
 
