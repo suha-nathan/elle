@@ -35,6 +35,15 @@ router.post('/course', async(req,res,next)=>{
     }
 })
 
+router.get('/course/:id', async(req,res)=>{
+    try{ 
+         const getCourse = await Course.findById(req.params.id)
+         res.status(200).json({message:"course gotten successfully", course: getCourse})
+     }catch(err){
+         res.status(400).json({message:"error updating course"})
+     }
+ })
+
 // add lessons to course
 router.put('/course/:id', async(req,res)=>{
    try{ 

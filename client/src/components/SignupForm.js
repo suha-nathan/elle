@@ -44,12 +44,6 @@ const SignupForm = ({ isAuth, signUp }) => {
         onSubmit: (values) => {
 
             let {  firstname, lastname, email, password } = values
-            // let saveObject ={
-            //     firstname,
-            //     lastname,
-            //     email,
-            //     password
-            // }
 
             const formData = new FormData()
             formData.append("firstname",firstname)
@@ -57,7 +51,7 @@ const SignupForm = ({ isAuth, signUp }) => {
             formData.append("email",email)
             formData.append("password",password)
             formData.append("file",baseImageUpload)
-            console.log("signing up")
+            // console.log("signing up")
             signUp(formData)
             // console.log(saveObject)
             // signUp(saveObject)
