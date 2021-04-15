@@ -16,8 +16,8 @@ const SignupForm = ({ isAuth, signUp }) => {
 
     const signupSchema = Yup.object().shape({
         file: Yup.mixed(),
-        firstName: Yup.string().required("Please enter your first name"),
-        lastName: Yup.string().required("Please enter your first name"),
+        firstname: Yup.string().required("Please enter your first name"),
+        lastname: Yup.string().required("Please enter your first name"),
         email: Yup.string().email("Invalid Email").required("Please enter your email"),
         password: Yup.string().required("password is required"),
         confirmPassword: Yup.string().when("password",{
@@ -33,8 +33,8 @@ const SignupForm = ({ isAuth, signUp }) => {
     const { handleChange,errors, handleSubmit, touched, values } = useFormik({
         initialValues: {
             file:null,
-            firstName: "",
-            lastName: "",
+            firstname: "",
+            lastname: "",
             email: "",
             password: "",
             confirmPassword: "",
@@ -43,17 +43,24 @@ const SignupForm = ({ isAuth, signUp }) => {
         validationSchema: signupSchema,
         onSubmit: (values) => {
 
-            let {  firstName, lastName, email, password, description, role } = values
-            let enumRole = role==="1" ? "teamLead" : "user"
+            let {  firstname, lastname, email, password } = values
+            // let saveObject ={
+            //     firstname,
+            //     lastname,
+            //     email,
+            //     password
+            // }
 
             const formData = new FormData()
-            formData.append("firstName",firstName)
-            formData.append("lastName",lastName)
+            formData.append("firstname",firstname)
+            formData.append("lastname",lastname)
             formData.append("email",email)
             formData.append("password",password)
             formData.append("file",baseImageUpload)
-
+            console.log("signing up")
             signUp(formData)
+            // console.log(saveObject)
+            // signUp(saveObject)
 
         }
     })
@@ -63,15 +70,14 @@ const SignupForm = ({ isAuth, signUp }) => {
     }
 
     return (
-        <div className="signup-page-container">
-            <Container className="d-flex flex-column justify-content-center align-items-center vh-100 ">
+            <Container className="d-flex flex-column justify-content-center align-items-center">
                 <Form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="signup-page-container__content w-100 h-150 d-flex flex-column justify-content-between">
-                        <Row className="h-75 ">
+                        <Row className="h-100 ">
                             <Col className="signup-input-col">
-                                <Row className="d-flex justify-content-between align-items-center px-5 h-100">
+                                {/* <Row className="d-flex justify-content-between align-items-center px-5 h-100"> */}
                                     {!thumbnailImage ?
-                                        <Image src="https://www.placehold.it/80x80" className="rounded-circle"/>
+                                        <Image src="https://via.placeholder.com/80" className="rounded-circle"/>
                                         :
                                         <Image src={thumbnailImage} width="80px" height="80px" className="rounded-circle"/>
                                     }
@@ -87,12 +93,12 @@ const SignupForm = ({ isAuth, signUp }) => {
                                         />
                                     </Form.Group>
  
-                                </Row>
+                                {/* </Row> */}
                             </Col>
 
                             <SignupInputCol
                                 placeholder="First Name"
-                                name="firstName"
+                                name="firstname"
                                 handleChange={handleChange}
                                 values={values}
                                 errors={errors}
@@ -101,7 +107,7 @@ const SignupForm = ({ isAuth, signUp }) => {
 
                             <SignupInputCol
                                 placeholder="Last Name"
-                                name="lastName"
+                                name="lastname"
                                 handleChange={handleChange}
                                 values={values}
                                 errors={errors}
@@ -154,17 +160,13 @@ const SignupForm = ({ isAuth, signUp }) => {
                                 <Col md={{ span: 4, offset: 4 }}>
                                     <Button variant="primary" type="submit" >Sign Up</Button>
                                 </Col>
-
-                                <Col md={4}>
-                                    <p className="m-0 pl-0">Already registered? <Link to="/login">Login Here</Link></p>
-                                </Col>
                             </Row>
 
                         </div>
+                        <p className="m-0 pl-0 " style={{position: 'absolute', bottom:'1rem'}}>Already registered? <Link to="/login">Login Here</Link></p>
                     </div>
                 </Form>
             </Container>
-        </div>
 
 
     )

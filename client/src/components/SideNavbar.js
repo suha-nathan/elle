@@ -15,8 +15,9 @@ export default function SideNavbar() {
             <div className="mx-auto p-2 m-2">
                 <h3 ><Elephant/> Elle </h3>
             </div>     
-            <Link className="nav-link" to="/dashboard"> <AiOutlineHome/> Dashboard</Link>
+            <Link className="nav-link" to="/dashboard"> <AiOutlineHome /> Dashboard</Link>
             <Link class="nav-link" to="/my-courses"> <BsLayers/> My Courses</Link>
+            <Link class="nav-link" to="/create-course"> <BsLayers/> Create Course</Link>
             <Link class="nav-link" to="/chat"> <BsChatDots/> Messages/Chat </Link>
             <Link class="nav-link" to="/games"> <IoGameControllerOutline/> Games</Link>
             <Link class="nav-link" to="/my-profile"> <BsPerson/> My Profile</Link>

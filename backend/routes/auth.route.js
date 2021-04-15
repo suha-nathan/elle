@@ -3,17 +3,18 @@ const router = require('express').Router()
 const passport = require('passport')
 const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
+const cloudinary = require("../lib/cloudinary.config")
 
-// const multer = require('multer')
+const multer = require('multer')
 
-// const localStore = require('../lib/multer.config')
-// const upload = multer({ storage: localStore })
-//upload.single("file")
+const localStore = require('../lib/multer.config')
+const upload = multer({ storage: localStore })
 
-router.post('/signup', async (req, res)=>{
+router.post('/signup', upload.single("file"), async (req, res)=>{
     try{
         let { firstname, lastname, email, password } = req.body
         console.log(req.body)
+        console.log(req.file)
         //check for repeat email/user
         const repeatUser = await User.findOne({email})
 
@@ -25,12 +26,13 @@ router.post('/signup', async (req, res)=>{
             email,
             password
         }
-
+        console.log(saveObj)
         if(req.file){
+            console.log("there is file")
             // check for req.file.mimetype to be image: 'image/jpeg' 'image/png',
-            if(req.file.mimetype !=  'image/jpeg' && req.file.mimetype != 'image/png'){
-                throw "please upload jpeg or png file"
-            }
+            // if(req.file.mimetype !=  'image/jpeg' && req.file.mimetype != 'image/png'){
+            //     throw "please upload jpeg or png file"
+            // }
 
             const imagePath = req.file.path
             const uniqueFilename = new Date().toISOString()
@@ -38,9 +40,10 @@ router.post('/signup', async (req, res)=>{
                 public_id: `${process.env.CLOUD_FILE}/${uniqueFilename}`
             }, (err, result) => {
                 if (err){
+                    console.log("there iis error  uploadin")
                     return res.send(err)
                 }
-                // console.log("file uploaded to cloudinary")
+                console.log("file uploaded to cloudinary")
                 //remove file from server
                 const fs = require('fs')
                 fs.unlinkSync(imagePath)

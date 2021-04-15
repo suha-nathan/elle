@@ -26,7 +26,7 @@ const SignupInputCol = ({name, placeholder, size, type, isTextarea, values, vali
                     onChange={handleChange}
                 />
                     {touched[name] && errors[name] ?(
-                        <p className="signup-input-col__error-message text-left my-1"> {errors[name]} </p>
+                        <p className="text-left my-1"> {errors[name]} </p>
 
                     ) : null
                     }
