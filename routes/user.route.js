@@ -15,7 +15,6 @@ router.get('/user',async(req,res,next) => {
 
 router.put('/user/:id',async(req,res,next) => {
     try{
-        console.log(req.params.id)
         const user = await User.findByIdAndUpdate(req.params.id, {
             $push: { 
                 courses:req.body

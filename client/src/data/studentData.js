@@ -83,7 +83,7 @@ const studentData = {
             courseTitle: "Biology 101",
             coursePicture: "https://i.pinimg.com/564x/4e/62/21/4e6221871c61e1e27cb04a214f4c1a89.jpg",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut sagittis odio, egestas commodo neque. ",
-            trailerEmbedVideo: "https://www.youtube.com/embed/SGNwG_MjslI",
+            trailerEmbedVideo: "https://www.youtube.com/embed/ax0yjzbSBa4",
             lessons:[]
         }
     ]
