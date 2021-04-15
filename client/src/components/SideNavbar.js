@@ -17,6 +17,7 @@ export default function SideNavbar() {
             </div>     
             <Link className="nav-link" to="/dashboard"> <AiOutlineHome /> Dashboard</Link>
             <Link class="nav-link" to="/my-courses"> <BsLayers/> My Courses</Link>
+            <Link class="nav-link" to="/subscribe"> <BsLayers/> Subscribe to Courses</Link>
             <Link class="nav-link" to="/create-course"> <BsLayers/> Create Course</Link>
             <Link class="nav-link" to="/chat"> <BsChatDots/> Messages/Chat </Link>
             <Link class="nav-link" to="/games"> <IoGameControllerOutline/> Games</Link>

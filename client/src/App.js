@@ -12,7 +12,7 @@ import CourseList from './components/CourseList'
 import CourseHome from './components/CourseHome'
 import ChatPage from './components/ChatPage'
 import CreateCourse from './components/CreateCourse'
-
+import SubCourseList from './components/SubCourseList'
 import studentData from "./data/studentData"
 
 function App() {
@@ -21,10 +21,9 @@ function App() {
     const [user, setUser] = useState({})
     const [errorMessage, setErrorMessage] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
+    const [userCourseData, setUserCourseData] = useState([])
+    const [ allCourseData, setAllCourseData ] = useState([])
 
-    const [ projectData, setProjectData ] = useState([])
-    const [allProjects, setAllProjects] = useState([])
-    const [filteredData, setFilteredData] = useState([])
 
     useEffect(()=>{
       const token = localStorage.getItem('token');
@@ -32,43 +31,28 @@ function App() {
           axios.defaults.headers.common['Authorization'] = "Bearer " + token;
       } else {
           axios.defaults.headers.common['Authorization'] = null;
-          /*if setting null does not remove `Authorization` header then try     
-            delete axios.defaults.headers.common['Authorization'];
-          */
       }
       console.log("usingeffect")
         loadUser()
+        loadAllCourseData()
     },[])
 
-    // async function loadProjectData() {
+    useEffect(()=>{
 
-    //     try {
-    //         let res = await axios.get('/', {
-    //             headers: {
-    //                 'x-auth-token': `Bearer ${localStorage.getItem('token')}`
-    //             }
-    //         })
-    //         console.log(res.data.data)
+    }, user)
 
-    //         setProjectData([...res.data.data])
-    //         setFilteredData([...res.data.data])
+    async function loadAllCourseData() {
 
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
+        try {
+            let res = await axios.get('/course')
+            console.log(res.data.data)
+            setAllCourseData([...res.data.data])
 
-    // }
+        } catch (e) {
+            console.log(e)
+        }
 
-    // async function loadAllProjects() {
-    //     const res = await axios.get('/api/project/all', {
-    //         headers: {
-    //             'x-auth-token': `Bearer ${localStorage.getItem('token')}`
-    //         }
-    //     })
-
-    //     setAllProjects([...res.data.data])
-    // }
-
+    }
     async function login(values) {
         try{
             let res = await axios.post("/account/login", values)
@@ -80,7 +64,7 @@ function App() {
           }, 4000)
             localStorage.setItem("token",res.data.token)
         }catch(e){
-            setErrorMessage(e.response?.data?.message)
+            setErrorMessage("cannot login")
             setTimeout(() => {
                 setErrorMessage("")
             }, 4000)
@@ -89,18 +73,8 @@ function App() {
 
     async function signUp(userInfo) {
         try{
-
-            let res = await axios.post("/course", userInfo
-            // , {
-                    // headers: {
-                    //     "content-type": "multipart/form-data"
-                    // }
-                // }
-            )
+            let res = await axios.post("/account/signup", userInfo)
             setAuth(true)
-
-            console.log("signup success")
-            // console.log(res.data)
             setSuccessMessage("signup success")
             setTimeout(() => {
                 setSuccessMessage("")
@@ -115,11 +89,7 @@ function App() {
             }, 4000)
         }
     }
-  //   ,{
-  //     headers:{
-  //         "Authorization" : `Bearer ${localStorage.token}`
-  //     }
-  // }
+
 
     async function loadUser() {
         try{
@@ -131,15 +101,14 @@ function App() {
             setAuth(false)
             localStorage.removeItem("token")
         }
-
     }
 
     function logOut() {
         setAuth(false)
         localStorage.removeItem("token")
     }
+    
 
-    console.log(user)
   return (
     <div>
       {errorMessage && <Alert variant="danger" className="error-alert">{errorMessage}</Alert>}
@@ -170,7 +139,7 @@ function App() {
             {isAuth ?
               <Layout logOut={logOut} user={user} > 
               <h3 className="header-text" >My Courses</h3>
-                <CourseList data={studentData}/>
+                <CourseList data={user.courses}/>
               </Layout>
               :
               <Redirect to="/login"/>
@@ -181,14 +150,12 @@ function App() {
             {isAuth ?
               <Layout logOut={logOut} user={user} > 
               <h3 className="header-text" >subscribe to courses</h3>
-                <CourseList  />
+                <SubCourseList data={allCourseData} user={user} setSuccessMessage= {setSuccessMessage} />
               </Layout>
               :
               <Redirect to="/login"/>
               }          
           </Route>
-
-
 
           <Route exact path="/my-courses/:id" >
             {isAuth ?
