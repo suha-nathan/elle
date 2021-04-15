@@ -55,7 +55,7 @@ function App() {
     }
     async function login(values) {
         try{
-            let res = await axios.post("/account/login", values)
+            let res = await axios.post("http://localhost:8080/account/login", values)
             setAuth(true)
             setUser(res.data.user)
             setSuccessMessage("Login success")
