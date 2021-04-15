@@ -3,10 +3,14 @@ const Schema = mongoose.Schema
 
 const lessonSchema = new Schema({
         title: {type:String, required:true},
-        content:[
+        mainEmbedVideo: {type:String, required:true},
+        lessonDescription: {type:String, required:true},
+        quizList:[
             {
-                video: String, 
-                description: String
+                quizNumber: String, 
+                questionTitle: String,
+                questionAnswerChoices: Array,
+                correctAnswer: String
             }
         ],
         isComplete: {type:Boolean, default:false}

@@ -3,8 +3,25 @@ const Schema = mongoose.Schema
 
 const courseSchema = new Schema({
         title: {type:String, required:true},
-        lessons: [ {type:Schema.Types.ObjectId, ref: "Lesson"} ],
-        isComplete: {type:Boolean, default:false}
+        coursePicture: {type:String, required:true},
+        description: {type:String, required:true},
+        trailerEmbedVideo: {type:String, required:true},
+        lessons: [ 
+            {
+                title: String,
+                mainEmbedVideo: String,
+                lessonDescription: String,
+                quizList:[
+                    {
+                        quizNumber: String, 
+                        questionTitle: String,
+                        questionAnswerChoices: Array,
+                        correctAnswer: String
+                    }],
+            isLessonComplete: {type:Boolean, default:false}
+            }
+        ],
+        isCourseComplete: {type:Boolean, default:false}
     },
     {timestamps:true}
 )

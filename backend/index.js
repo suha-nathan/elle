@@ -33,8 +33,10 @@ app.use(passport.session())
 app.use(flash())
 
 
-app.use("/",passport.authenticate('jwt', { session: false }), require("./routes/course.route"))
+
 app.use('/account', require("./routes/auth.route"))
+app.use("/",passport.authenticate('jwt', { session: false }), require("./routes/course.route"))
+app.use("/",passport.authenticate('jwt', { session: false }), require("./routes/user.route"))
 
 
 app.use((req, res) => {

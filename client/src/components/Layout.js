@@ -1,28 +1,26 @@
 import React from 'react'
-import { Row, Col, Image, Navbar } from 'react-bootstrap'
+import { Row, Col, Image, Navbar, Button } from 'react-bootstrap'
 import SideNavbar from './SideNavbar'
 
 
-export default function Layout({ children }) {
+export default function Layout({ children, logOut, user }) {
     return (
         <>
             <Row className="vw-100">
-                <Col md={2} >
+                <Col sm={4} md={3} lg={2} >
                     <SideNavbar/>
                 </Col>
 
-                <Col md={10} >
-                <Navbar>
-                    {/* <Navbar.Brand >Hello Mark</Navbar.Brand> */}
-                    <Navbar.Toggle />
-                    <Navbar.Collapse className="justify-content-end">
-                        <Navbar.Text>
-                        {/* <h2> Hello Suha </h2>
-                        Signed in as: <a href="#login">Mark Otto</a> */}
-                        </Navbar.Text>
-                        <Image src="https://via.placeholder.com/80" roundedCircle />
-                    </Navbar.Collapse>
-                </Navbar>
+                <Col sm={8} md={9} lg={10} >
+
+                    <Navbar className="justify-content-end">
+                    <Button className="m-2" variant="outline-info" onClick={ ()=>{logOut()}} >Log Out</Button>
+                        <Image 
+                        src={user?.profilePicture ? user.profilePicture: "https://via.placeholder.com/80" }
+                        width = "80rem"
+                        height = "80rem"
+                        roundedCircle />
+                    </Navbar>
                     {children}
                 </Col>
             </Row>
