@@ -5,7 +5,7 @@ const User = require('../models/user.model')
 
 router.get('/user',async(req,res,next) => {
     try{
-        console.log(req.user.id)
+        // console.log(req.user)
         const user = await User.findById(req.user.id).populate('courses')
         res.status(200).json({user: user})
     }catch(e){
@@ -22,7 +22,22 @@ router.put('/user/:id',async(req,res,next) => {
         })
         res.status(200).json({message:"success"})
     }catch(e){
-        res.send(400).json({message:"failed to get data"})
+        res.send(400).json({message:"failed to update data"})
+    }
+})
+
+router.put("/user/:id/delete", async(req, res, next)=>{
+    try{
+        console.log(req.body.courseId)
+        const user = await User.findByIdAndUpdate(req.params.id, {
+            $pull: {
+                courses: req.body.courseId
+            }
+        })
+
+        res.status(200).json({message:"updated successfully"})
+    }catch(err){
+        res.status(500).json({message:"update failed"})
     }
 })
 

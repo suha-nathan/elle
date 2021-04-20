@@ -1,15 +1,13 @@
 import { React, useEffect, useState } from 'react'
-import { Link,useParams } from 'react-router-dom'
-import studentData from "../data/studentData"
+import { Link, useParams, NavLink } from 'react-router-dom'
 import { BsCheckCircle, BsCircle } from "react-icons/bs"
 import { Row, Col, Accordion, Card, Button } from "react-bootstrap"
 import axios from "axios"
 
-function CourseHome({courseData}) {
+function CourseHome({ currentCourse, setCurrentCourse }) {
     
-    const courseIndivData = studentData.courseInformation[0] 
     const params = useParams()
-    const [currentCourse, setCurrentCourse ] = useState({})
+    // const [currentCourse, setCurrentCourse ] = useState({})
 
     useEffect(()=>{
         loadData()
@@ -17,7 +15,9 @@ function CourseHome({courseData}) {
     async function loadData(){
         try{
             let res = await axios.get(`/course/${params.id}` )
-            setCurrentCourse(res.data.course)
+            let urlTitle = res.data.course.title.replace(/\s+/g, "")
+            let newCourseObject = { ...res.data.course, urlTitle: urlTitle}
+            setCurrentCourse(newCourseObject)
         }catch(err){
             console.log(err)
         }
@@ -34,21 +34,25 @@ function CourseHome({courseData}) {
                 height="315" 
                 src={`${currentCourse.trailerEmbedVideo}`}
                 title="YouTube video player" 
-                frameborder="0" 
+                frameBorder="0" 
                 allow="accelerometer; 
                 autoplay; clipboard-write; 
                 encrypted-media; gyroscope; 
                 picture-in-picture" 
-                allowfullscreen></iframe>
+                allowFullScreen></iframe>
         </div>
         <div>                
             <h4>Overview</h4>
             <p>{currentCourse.description}</p>
         </div>
-           <Button variant="info"> 
-                <Link style={{color:"white"}} to={`/my-courses/${courseIndivData.id}/${courseIndivData.courseTitle}`}>
+           <Button variant="info" disabled> 
+             Start Course
+                {/* <NavLink 
+                    style={{color:"white"}} 
+                    to={`/my-courses/${currentCourse._id}/${currentCourse.urlTitle}`}
+                    isActive={false}>
                     Start Course
-                </Link> 
+                </NavLink>  */}
             </Button>
         </Col>
 
@@ -57,14 +61,14 @@ function CourseHome({courseData}) {
                 Course Content
             </h2>
             <Accordion>
-            {currentCourse.lessons?.map((el,index)=>(
-                <Card>
-                <Accordion.Toggle as={Card.Header} eventKey={`${index}`}>
-                    {el.title} <BsCheckCircle/>
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey={`${index}`}>
-                    <Card.Body>{el.lessonDescription}</Card.Body>
-                </Accordion.Collapse>
+            {currentCourse.lessons?.map((lesson,index)=>(
+                <Card key={index}>
+                    <Accordion.Toggle as={Card.Header} eventKey={`${index}`}>
+                        {lesson.title} <BsCheckCircle/>
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey={`${index}`}>
+                        <Card.Body>{lesson.lessonDescription}</Card.Body>
+                    </Accordion.Collapse>
                 </Card>
                     ))}
             </Accordion>

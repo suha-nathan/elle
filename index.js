@@ -28,7 +28,7 @@ app.use(session({
     secret: process.env.SECRET,
     resave:false,
     saveUninitialized:true,
-    store:mongoStore.create({mongoUrl:process.env.PROD_DB})
+    store:mongoStore.create({mongoUrl:process.env.DB})
 }))
 
 app.use(passport.initialize())

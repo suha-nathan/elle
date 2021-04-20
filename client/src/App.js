@@ -13,41 +13,40 @@ import CourseHome from './components/CourseHome'
 import ChatPage from './components/ChatPage'
 import CreateCourse from './components/CreateCourse'
 import SubCourseList from './components/SubCourseList'
-import studentData from "./data/studentData"
+import CourseStart from './components/CourseStart'
 
 function App() {
   const [isSignedUp, setSignedUp] = useState(false)
     const [isAuth, setAuth] = useState(false)
+    
     const [user, setUser] = useState({})
     const [errorMessage, setErrorMessage] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
     const [userCourseData, setUserCourseData] = useState([])
     const [ allCourseData, setAllCourseData ] = useState([])
-
+    const [currentCourse, setCurrentCourse ] = useState({})
 
     useEffect(()=>{
+      
       const token = localStorage.getItem('token');
       if (token) {
           axios.defaults.headers.common['Authorization'] = "Bearer " + token;
       } else {
           axios.defaults.headers.common['Authorization'] = null;
-      }
-      console.log("usingeffect")
-        loadUser()
-        loadAllCourseData()
+      }   
+      loadUser()
+      loadAllCourseData()
     },[])
 
     useEffect(()=>{
-
-    }, user)
+      window.scrollTo(0,0)
+    }, [successMessage, errorMessage])
 
     async function loadAllCourseData() {
-
         try {
             let res = await axios.get('/course')
             console.log(res.data.data)
-            setAllCourseData([...res.data.data])
-
+            setAllCourseData(res.data.data)
         } catch (e) {
             console.log(e)
         }
@@ -57,7 +56,9 @@ function App() {
         try{
             let res = await axios.post("/account/login", values)
             setAuth(true)
-            setUser(res.data.user)
+            console.log(res.data.user)
+            setUser(res.data.user)  
+            loadUser() 
             setSuccessMessage("Login success")
             setTimeout(() => {
               setSuccessMessage("")
@@ -75,11 +76,12 @@ function App() {
         try{
             let res = await axios.post("/account/signup", userInfo)
             setAuth(true)
+            setUser(res.data.user) 
+            loadUser()
             setSuccessMessage("signup success")
             setTimeout(() => {
                 setSuccessMessage("")
             }, 4000)
-            setUser(res.data.user)
             localStorage.setItem("token",res.data.token)
         }catch(e){
             // console.log(e.response.data.message)
@@ -90,12 +92,12 @@ function App() {
         }
     }
 
-
     async function loadUser() {
         try{
             let res = await axios.get("/user")
-            setUser(res.data.user)
             setAuth(true)
+            console.log("loading user ", res.data.user)
+            setUser(res.data.user)
         }catch(e){
             // setErrorMessage(e.response.data.message)
             setAuth(false)
@@ -108,7 +110,7 @@ function App() {
         localStorage.removeItem("token")
     }
     
-
+  console.log(user)
   return (
     <div>
       {errorMessage && <Alert variant="danger" className="error-alert">{errorMessage}</Alert>}
@@ -124,22 +126,21 @@ function App() {
           </Route>
 
           <Route exact path="/dashboard" >
-            {isAuth ?
-            <Layout logOut={logOut} user={user}> 
-              <h3 className="header-text" >Dashboard</h3>
-              <Dashboard/>
-            </Layout>
-            :
-            <Redirect to="/login"/>
+            {isAuth ? 
+              <Layout logOut={logOut} user={user}> 
+                <h3 className="header-text" >Dashboard</h3>
+                <Dashboard user={user} isAuth={isAuth} />
+              </Layout>
+              :
+              <Redirect to="/login"/>            
             }
-            
           </Route>
 
           <Route exact path="/my-courses" >
             {isAuth ?
               <Layout logOut={logOut} user={user} > 
               <h3 className="header-text" >My Courses</h3>
-                <CourseList data={user.courses}/>
+                <CourseList user={user} loadUser={loadUser} setSuccessMessage={setSuccessMessage} />
               </Layout>
               :
               <Redirect to="/login"/>
@@ -150,7 +151,7 @@ function App() {
             {isAuth ?
               <Layout logOut={logOut} user={user} > 
               <h3 className="header-text" >subscribe to courses</h3>
-                <SubCourseList data={allCourseData} user={user} setSuccessMessage= {setSuccessMessage} />
+                <SubCourseList allCourseData={allCourseData} user={user} setSuccessMessage= {setSuccessMessage} loadUser={loadUser}/>
               </Layout>
               :
               <Redirect to="/login"/>
@@ -160,7 +161,7 @@ function App() {
           <Route exact path="/my-courses/:id" >
             {isAuth ?
               <Layout logOut={logOut} user={user} > 
-                <CourseHome/>
+                <CourseHome currentCourse={currentCourse} setCurrentCourse={setCurrentCourse} />
               </Layout>
               :
               <Redirect to="/login"/>
@@ -170,6 +171,7 @@ function App() {
           {isAuth ?
               <Layout logOut={logOut} user={user} > 
               <p>Course Content</p>
+              <CourseStart currentCourse={currentCourse}/>
             </Layout>
               :
               <Redirect to="/login"/>

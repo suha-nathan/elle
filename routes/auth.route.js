@@ -53,7 +53,7 @@ router.post('/signup', upload.single("file"), async (req, res)=>{
         }
 
         const newUser = new User(saveObj)
-        console.log(newUser)
+        // console.log(newUser)
         await newUser.save()
    
         let payload = {
@@ -84,10 +84,12 @@ router.post('/login', async (req, res, next) => {
             if (err || !user) {
                 throw 'An error occurred.'                    
             }
+            const popUser = await User.findById(user._id).populate('courses')
+            // console.log(popUser)
             req.login(user, { session: false }, 
             async (error) => {
                 if (error) return next(error);
-            
+
                 let payload = {
                     user: {
                         id: user._id, 
@@ -98,7 +100,7 @@ router.post('/login', async (req, res, next) => {
                 }, (err,token)=>{
                     return res.status(201).json({
                         message: "successfully logged in",
-                        user: user,
+                        user: popUser,
                         token
                     })
                 });

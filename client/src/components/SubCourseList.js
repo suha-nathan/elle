@@ -1,35 +1,48 @@
-import { React, useHistory } from 'react'
-
+import { React, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Button, Row, Col, Card } from "react-bootstrap"
 // import { IoEllipseOutline } from 'react-icons/io5'
 // import { Link } from "react-router-dom"
 import axios from "axios"
 
-function SubCourseList( {data, user, setSuccessMessage} ) {
+function SubCourseList({ allCourseData, user, setSuccessMessage, loadUser }) {
     // console.log(data)
+    const [ data, setData ] = useState([])
+    const history = useHistory()
 
-    // useEffect(()=>{
-    //     handleCourseExists()
-    // },[])
-
-    // function handleCourseExists(){
-    //     //course is found in array disable button
-    //     if(user.courses.findIndex( course => course._id === el._id) != -1){
+    useEffect(()=>{
+        setData([])
+        allCourseData.forEach((el,idx)=>{
+            if (user.courses.findIndex(course => course._id === el._id) != -1 ){ 
+                let newObj = {...el, isSubbed:true }
+                setData(prevState=>( [...prevState, newObj] ))
+            }else{
+                let newObj = {...el, isSubbed:false }
+                setData(prevState=>( [...prevState, newObj] ))
+            } 
             
-    //     }
-    // }
+            })
+            
+        },[])
 
     async function handleClick(course){
         try{
             let res = await axios.put(`user/${user._id}`, course)
+            loadUser()
             setSuccessMessage("subscribed to course!")
             setTimeout(() =>{
                 setSuccessMessage("")
             },4000)
+            
+            history.push(`/my-courses/${course._id}`)
+
         }catch(err){
             console.log(err)
         }
     }
+
+    console.log(data)
+
     return (
         <Row className="mx-auto">
             {data?.map((el,index)=>(
@@ -42,7 +55,14 @@ function SubCourseList( {data, user, setSuccessMessage} ) {
                   <Card.Text>
                     {el.description}
                   </Card.Text>
-                     <Button variant="info" onClick={()=>{handleClick(el)}} > Subscribe </Button>
+                  {el.isSubbed?
+                    <Button variant="info" disabled > Already Subscribed! </Button>
+                    :
+                    <Button variant="info" onClick={()=>{handleClick(el)}} > Subscribe </Button>
+
+                  }
+
+                     
                  
                   {/* <Link to={`/my-courses/${el._id}`}>View Course</Link> */}
                 </Card.Body>
