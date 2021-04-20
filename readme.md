@@ -8,7 +8,7 @@ This app was built for
 
 ```
 - React and React Router
-- Redux for state management
+- Redux for state management (work in progress)
 - SASS
 - Axios for API
 - ExpressJS, NodeJS and MongoDb for database
