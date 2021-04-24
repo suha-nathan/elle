@@ -31,9 +31,7 @@ function App() {
       const token = localStorage.getItem('token');
       if (token) {
           axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-      } else {
-          axios.defaults.headers.common['Authorization'] = null;
-      }   
+      }
       loadUser()
       loadAllCourseData()
     },[])
@@ -55,6 +53,7 @@ function App() {
     async function login(values) {
         try{
             let res = await axios.post("/account/login", values)
+            localStorage.setItem("token",res.data.token)
             setAuth(true)
             console.log(res.data.user)
             setUser(res.data.user)  
@@ -63,7 +62,7 @@ function App() {
             setTimeout(() => {
               setSuccessMessage("")
           }, 4000)
-            localStorage.setItem("token",res.data.token)
+            
         }catch(e){
             setErrorMessage("cannot login")
             setTimeout(() => {
@@ -75,6 +74,7 @@ function App() {
     async function signUp(userInfo) {
         try{
             let res = await axios.post("/account/signup", userInfo)
+            localStorage.setItem("token",res.data.token)
             setAuth(true)
             setUser(res.data.user) 
             loadUser()
@@ -94,7 +94,7 @@ function App() {
 
     async function loadUser() {
         try{
-            let res = await axios.get("/user")
+            let res = await axios.get(`/user/${user._id}`)
             setAuth(true)
             console.log("loading user ", res.data.user)
             setUser(res.data.user)
@@ -111,6 +111,7 @@ function App() {
     }
     
   console.log(user)
+  console.log(isAuth)
   return (
     <div>
       {errorMessage && <Alert variant="danger" className="error-alert">{errorMessage}</Alert>}
