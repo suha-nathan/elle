@@ -1,8 +1,8 @@
 # Elle - A learning management application
 
+![elle](https://github.com/suha-nathan/elle/blob/main/img/elle.gif)
 
 ## Description
-
 This app was built as an online learning management portal for students to subscribe to courses created by their teachers to facilitate online learning.
 
 ### Tech
@@ -15,7 +15,6 @@ This app was built as an online learning management portal for students to subsc
 - ExpressJS, NodeJS and MongoDb for database
 - Rechart.js for data visualisation
 - Socket.io for chat and game functionality (work in progress)
-
 ```
 
 ### User Stories
@@ -44,6 +43,4 @@ I started out with sketching on figma the overall flow of the app and the variou
 - chat functionality
 - game functionality
 - media query to adapt to screen size
-```
-
 
