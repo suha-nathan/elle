@@ -46,6 +46,4 @@ I started out with sketching on figma the overall flow of the app and the variou
 - media query to adapt to screen size
 ```
 
-```
 
----
