@@ -14,6 +14,7 @@ import ChatPage from './components/ChatPage'
 import CreateCourse from './components/CreateCourse'
 import SubCourseList from './components/SubCourseList'
 import CourseStart from './components/CourseStart'
+import Chat from './components/Chat'
 
 function App() {
   const [isSignedUp, setSignedUp] = useState(false)
@@ -27,11 +28,6 @@ function App() {
     const [currentCourse, setCurrentCourse ] = useState({})
 
     useEffect(()=>{
-      
-      const token = localStorage.getItem('token');
-      if (token) {
-          axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-      }
       loadUser()
       loadAllCourseData()
     },[])
@@ -46,7 +42,7 @@ function App() {
             console.log(res.data.data)
             setAllCourseData(res.data.data)
         } catch (e) {
-            console.log(e)
+            console.log("error loading course data")
         }
 
     }
@@ -93,19 +89,26 @@ function App() {
     }
 
     async function loadUser() {
-        try{
+      try{
+        const token = localStorage.getItem('token');
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = "Bearer " + token;
+        }
             let res = await axios.get(`/user/${user._id}`)
             setAuth(true)
-            console.log("loading user ", res.data.user)
+            console.log(user)
+            console.log("loading user ", user._id)
             setUser(res.data.user)
         }catch(e){
             // setErrorMessage(e.response.data.message)
+            console.log("error loading user", user._id)
             setAuth(false)
             localStorage.removeItem("token")
         }
     }
 
     function logOut() {
+      console.log("loggin out")
         setAuth(false)
         localStorage.removeItem("token")
     }
@@ -194,7 +197,7 @@ function App() {
           {isAuth ?
             <Layout logOut={logOut} user={user} > 
               <h3>Chat</h3>
-              <ChatPage/>
+              <Chat/>
             </Layout> 
             :
             <Redirect to="/login"/>

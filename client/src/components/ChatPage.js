@@ -2,7 +2,7 @@ import {React, useEffect, useState} from 'react'
 import { Row, Form, Col, Button, InputGroup } from "react-bootstrap"
 import axios from "axios"
 
-function ChatPage() {
+function ChatPage({ user }) {
     const [users,setUsers] = useState([])
     const [allRooms, setAllRooms] = useState([])
     const [roomMessages, setRoomMessages] = useState([])
@@ -26,20 +26,26 @@ function ChatPage() {
         setRoomId(res.data.chatRoom.chatRoomId)
     }
 
+    async function getChatByRoom(){
+        const res = await axios.get(`/chat/${roomId}`)
+        console.log(res.data)
+    }
+
     async function loadUsers(){
-        const res = await axios.get("/user")
-        setUsers(res.data.users)
+        const res = await axios.get("/user") 
+        const tempPayload = res.data.users.filter(el => el._id !== user._id )
+        setUsers(tempPayload)
     }
     
     async function handleClick(){
-        const res = await axios.post(`/chat/${roomId}/message`, messageText)
-        console.log("submitting message")
+        const res = await axios.post(`/chat/${roomId}/message`, {messageText})
+        console.log(res.data)
     }
 
     
     console.log(users)
-    console.log(roomId)
-    console.log(messageText)
+    console.log("room ID is ", roomId)
+    console.log("message text is ", messageText)
     return (
     <Row  > 
         <Col md={3}> 
@@ -47,11 +53,11 @@ function ChatPage() {
             
             <ul>
             {
-                users?.map((user, index)=>(
-                    <>
-                    <li key={index}>{user.firstname}</li>
-                    <Button onClick={()=>initiateChat(user._id)} >Create New Chat</Button>
-                    </>
+                users?.map((indivUser, index) =>(
+                        <div key={index}>
+                            <li>{indivUser.firstname}</li>
+                            <Button onClick={()=>initiateChat(indivUser._id)} >Create New Chat</Button>
+                        </div>                         
                 ))
 
             }
