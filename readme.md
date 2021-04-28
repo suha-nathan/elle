@@ -1,4 +1,4 @@
-# Elle - A learning management application
+# Elle 
 
 ![elle](https://github.com/suha-nathan/elle/blob/main/img/elle.gif)
 
