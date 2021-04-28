@@ -5,21 +5,21 @@ const User = require('../models/user.model')
 
 router.get('/user',async(req,res,next) => {
     try{
-        // console.log(req.user)
+        console.log(req.user)
         const users = await User.find()
         res.status(200).json({users: users})
     }catch(e){
-        res.send(400).json({message:"failed to get data"})
+        res.status(400).json({message:"failed to get data"})
     }
 })
 
 router.get('/user/:id',async(req,res,next) => {
     try{
-        // console.log(req.user)
         const user = await User.findById(req.user.id).populate('courses')
         res.status(200).json({user: user})
     }catch(e){
-        res.send(400).json({message:"failed to get data"})
+        console.log("Error getting user")
+        res.status(400).json({message:"failed to get data"})
     }
 })
 
@@ -32,7 +32,7 @@ router.put('/user/:id',async(req,res,next) => {
         })
         res.status(200).json({message:"success"})
     }catch(e){
-        res.send(400).json({message:"failed to update data"})
+        res.status(400).json({message:"failed to update data"})
     }
 })
 

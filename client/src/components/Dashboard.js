@@ -12,7 +12,7 @@ function Dashboard({ user }) {
 
     return (
         <div>
-            <h3 className="header-text" >Hi {user.firstname} you've got 99 points so far!</h3>
+            <h3 className="header-text" >Hi {user?.firstname} you've got 99 points so far!</h3>
             <Row className="justify-content-md-center" >
                 <Col className="p-4" sm={6} md={4} >
                     <RadarChart className="chart-div" outerRadius={90} width={300} height={250} data={radarData}>
@@ -44,7 +44,7 @@ function Dashboard({ user }) {
                 </Col>
 
                 <Col className="m-4 p-4" >
-                    {/* <MyCalendar/> */}
+                    <MyCalendar/>
                 </Col>
 
 

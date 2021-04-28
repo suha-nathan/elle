@@ -40,7 +40,7 @@ const LoginForm = ({ isAuth, login }) => {
                         name="email"
                         placeholder="Email"
                         value={values.email}
-                        className="my-2"s
+                        className="my-2"
                         onChange={handleChange}
                     />
                     <div className={"emailError"}>
