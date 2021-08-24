@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-// const logger = require('morgan')
+const logger = require('morgan')
 // const socketio = require('socket.io')()
 // const WebSockets = require('./lib/WebSockets')
 // //connect to mongoDB 
